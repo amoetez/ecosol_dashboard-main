@@ -9,6 +9,7 @@ import { Toast } from 'primereact/toast';
 import { ProgressBar } from 'primereact/progressbar';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
+import axios from 'axios';
 
 
 const FormLayoutDemo = () => {
@@ -136,11 +137,8 @@ const FormLayoutDemo = () => {
 
         try {
             if (images.length !== 0 && titre !== '' && description !== '' && contenu !== '') {
-                const response = await fetch('http://79.137.87.204:5050/article/ajouter_article', {
-                    method: 'POST',
-                    body: formData,
-                    credentials: 'include'
-                });
+                
+                const response = await axios.post("http://79.137.87.204:5050/article/ajouter_article",formData);
                 console.log(response);
                 if (response.ok) {
                     router.push('/articles')

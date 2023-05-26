@@ -4,6 +4,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import axios from 'axios';
 
 export default function BasicFilterDemo() {
     const [contactsInfo, setContactsInfo] = useState(null);
@@ -22,7 +23,7 @@ export default function BasicFilterDemo() {
 
 
     useEffect(() => {
-        fetch('http://79.137.87.204:5050/coordonneClient').then((response) =>
+        axios.get("http://79.137.87.204:5050/coordonneClient").then((response) =>
             response.json()).then((data) => {
                 console.log(data);
                 setContactsInfo(data);
