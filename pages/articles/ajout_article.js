@@ -25,6 +25,7 @@ const FormLayoutDemo = () => {
     const fileUploadRef = useRef(null);
 
     const onTemplateSelect = (e) => {
+        console.log(e)
         let _totalSize = totalSize;
         let files = e.files;
 
