@@ -10,6 +10,8 @@ import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import {generateAxiosInstance,axiosInstance} from "../utils/axiosInstance"
+generateAxiosInstance()
 const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -19,21 +21,13 @@ const LoginPage = () => {
     const router = useRouter();
     const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' });
     const onLogin = async () => {
-        // const response = await fetch('http://79.137.87.204:5050/admin/login', {
-        //     method: 'POST',
-        //     body: JSON.stringify({ email, password }),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     credentials: 'include'
-        // });
-        axios
-            .post('http://79.137.87.204:5050/admin/login', { email, password })
+        axiosInstance
+            .post('/admin/login', { email, password })
             .then((res) => {
                 console.log(res);
-                if (res.data === 'Success') {
+                if (res.data.type === 'Success') {
+                    window.localStorage.setItem("token",res.data.token)
                     Cookies.set('authenticated', 'true');
-                    Cookies.set("token","token")
                     router.push('/articles');
                 }
             })
